@@ -26,6 +26,10 @@ class DictionaryThings:
             return False
         
         word_title = soup.find(id="vitemselected")
+
+        if word_title is None:
+            return False
+
         word_title = word_title.text
         word_defs = soup.find_all("span", "tlf_cdefinition")
         word_defs = [definition.text for definition in word_defs]

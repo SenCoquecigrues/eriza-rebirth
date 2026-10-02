@@ -46,7 +46,10 @@ class Productivity(commands.Cog):
         word = await db_obj.fetch_random_word()
         result = await scrapers.DictionaryThings.get_word(word[1])
 
-        await chann.send(f"**LE MOT RARE DU JOUR**\n\n:book: {result}")
+        if result:
+            await chann.send(f"**LE MOT RARE DU JOUR**\n\n:book: {result}")
+        else:
+            await chann.send("Votre mot n'existe pas/plus/quelque chose terrible s'est passé.")
 
     ############################# COMMANDES
     @commands.command(aliases=['na'])
@@ -87,10 +90,14 @@ class Productivity(commands.Cog):
     @commands.command()
     async def rare(self, ctx):
         db_obj = db.DBHandler()
-        word = await db_obj.fetch_random_word()
-        result = await scrapers.DictionaryThings.get_word(word[1])
+        # word = await db_obj.fetch_random_word()
+        # result = await scrapers.DictionaryThings.get_word(word[1])
+        result = await scrapers.DictionaryThings.get_word("faquin")
 
-        await ctx.send(f"**VOTRE MOT RARE, BOSS**\n\n:book: {result}")
+        if result:
+            await ctx.send(f"**VOTRE MOT RARE, BOSS**\n\n:book: {result}")
+        else:
+            await chann.send("Votre mot n'existe pas/plus/quelque chose terrible s'est passé.")
 
     @commands.command()
     async def gneh(self, ctx, arg=None):

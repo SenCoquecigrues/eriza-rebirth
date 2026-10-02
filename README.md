@@ -52,7 +52,4 @@ You will need to keep the proxy open every time you want to access the datatabas
 [Deploy a python discord](https://community.fly.io/t/deploy-python-discord-bot/5667)
 
 ## TODO
-- Tests
-- Fix rare word list
 - Fix rare word scraping
-- Fix help
