@@ -5,41 +5,56 @@ import unicodedata
 from bs4 import BeautifulSoup as bs
 
 
-async def scrape(url, func):
+async def api_scrape(json_content, func) -> tuple|bool:
+    try:
+        content = json_content["content"][0]["content"][0]
+        if not content:
+            raise Exception
+        else:
+            soup = bs(content, 'lxml')
+            return await func(soup)
+
+    except Exception:
+        return False
+
+async def scrape(url, func) -> str|bool:
     """
     This function prepares a scraped page from the urg argument,
     then scrape it with the func argument. 
     """
     async with aiohttp.ClientSession() as session:
         async with session.get(url) as response:
-            body = await response.text()
-            soup = bs(body, 'lxml')
-            result = await func(soup)
-            
-            return result
+            return await api_scrape(
+                await response.json(),
+                func
+            )
 
 
 class DictionaryThings:
+    SCRAPE_URL = "https://www.cnrtl.fr/api/word/"
+
     @staticmethod
-    async def return_word(soup):
-        if "Cette forme est introuvable" in soup.text:
+    async def return_word(soup) -> tuple|bool:
+        try:
+            word_title = soup.find("h2")
+
+            if word_title is None:
+                return False
+
+            word_title = word_title.text
+            word_defs = soup.find_all("span", "s-definition")
+            word_defs = [definition.text for definition in word_defs]
+
+            return (word_title, word_defs)
+        except Exception:
             return False
-        
-        word_title = soup.find(id="vitemselected")
-
-        if word_title is None:
-            return False
-
-        word_title = word_title.text
-        word_defs = soup.find_all("span", "tlf_cdefinition")
-        word_defs = [definition.text for definition in word_defs]
-
-        return (word_title, word_defs)
 
     @staticmethod
     async def get_word(word):
         url = f"https://www.cnrtl.fr/definition/{word}"
-        word_definition = await scrape(url, DictionaryThings.return_word)
+        word_definition = await scrape(
+            DictionaryThings.SCRAPE_URL + word, DictionaryThings.return_word
+        )
         if word_definition == False:
             return False
         else:

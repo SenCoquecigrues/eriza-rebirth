@@ -90,9 +90,8 @@ class Productivity(commands.Cog):
     @commands.command()
     async def rare(self, ctx):
         db_obj = db.DBHandler()
-        # word = await db_obj.fetch_random_word()
-        # result = await scrapers.DictionaryThings.get_word(word[1])
-        result = await scrapers.DictionaryThings.get_word("faquin")
+        word = await db_obj.fetch_random_word()
+        result = await scrapers.DictionaryThings.get_word(word[1])
 
         if result:
             await ctx.send(f"**VOTRE MOT RARE, BOSS**\n\n:book: {result}")
