@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 
 from .utils.birthday_handler import BirthdayHandler
-from .utils.shitpost import fanfic_it, queenize
+from .utils.shitpost import fanfic_it, queenize, return_apero_time
 from .utils.tools import JsonLoader, MPSender
 
 
@@ -11,6 +11,10 @@ class Shitpost(commands.Cog):
         self.bot = bot
         self.replier = JsonLoader('nonsense_replies')
         self.yaoi_replier = JsonLoader('yaoi_prompts')
+
+    @commands.command(aliases=["adm"])
+    async def admin(self, ctx):
+        print("placeholder")
 
     @commands.command(aliases=["ann"])
     async def anniversaire(self, ctx, birthday=None):
@@ -98,12 +102,33 @@ class Shitpost(commands.Cog):
         await ctx.send(message)
 
     @commands.command()
+    async def saika(self, ctx, message=None):
+        if message == None:
+            the_time = return_apero_time("Paris")
+        else:
+            the_time = return_apero_time(message)
+
+        for_what = self.replier.get_random("saika")
+
+        await ctx.send(f"Il est {the_time}, {for_what}")
+
+    @commands.command()
     async def sen(self, ctx):
         await ctx.send(self.replier.get_random("sen"))
 
     @commands.command()
     async def sne(self, ctx):
         await ctx.send(queenize(self.replier.get_random("sen")))
+
+    @commands.command()
+    async def spleen(self, ctx):
+        where_to = ctx.message.content.split(" ")
+        where_to.pop(0)
+        answer = self.replier.get_random("spleen")
+        if where_to:
+            where_to = " ".join(where_to)
+            answer = f"{answer} => {where_to}"
+        await ctx.send(answer)
 
     @commands.command()
     async def yaoi(self, ctx):

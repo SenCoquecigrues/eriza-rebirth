@@ -398,7 +398,6 @@
     "Tes sentiments sont valides.",
     "):"
   ],
-
   "sen": [
     "*oublie la conversation*",
     "J'ai une anecdote incroyable à vous raconter sur mon chat !",
@@ -439,5 +438,24 @@
     "Et c'est ainsi que je me suis accidentellement inscrite à un nouvel échange —",
     "C'est bien moi, Sen ! J'oublie de mettre des culottes et je déteste les manants qui prétendent connaître la langue française alors qu'ils n'ont pas, comme moi, lu le bescherelle à l'envers et acheté des livres sur tous les sujets possibles *au cas où* je devais écrire dessus",
     "Je suis Sen ! Ohhh je ne veux pas que des gens dépensent des sous dans des choses aussi médiocres que des vêtements. Donnez moi des pavés traitants du mobilier Louis XV et des meurtres dans le Périgord aux alentours de 1530"
+  ],
+  "saika": [
+    "soit l'heure de l'apéro !",
+    "soit l'heure de l'apéro !!",
+    "soit l'heure du prosecco !",
+    "soit l'heure de boire un coup !",
+    "soit l'heure d'absorber un breuvage rafraîchissant !",
+    "soit l'heure de boire tout sauf de la rakia !",
+    "soit l'heure du whisky !",
+    "soit l'heure de lire un bon livre seule chez soi."
+  ],
+  "spleen": [
+    "En mémoire de Spleen, veuillez changer de salon",
+    "C'est très bien, tout ça ; et si nous changions de salon ?",
+    "Veuillez vous stopper et changer de salon",
+    "Changeons de salon, gueuses-chan",
+    "Vous savez ce qui est beau et bon, dans la vie ? L'Italie, les décapos et le pesto. Et parler dans le bon salon.",
+    "Hop hop hop, allez dans le bon salon",
+    "Et si nous allions dans les terres exotiques de : un autre salon plus adapté à cette conversation ?"
   ]
 }

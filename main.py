@@ -8,7 +8,7 @@ class Eriza(commands.Bot):
         await self.load_extension('cogs.configurateur')
         await self.load_extension('cogs.coureur')
         await self.load_extension('cogs.productivity')
-        # await self.load_extension('cogs.shards')
+        await self.load_extension('cogs.shards')
         await self.load_extension('cogs.shitpost')
         await self.load_extension('cogs.message_listener')
 

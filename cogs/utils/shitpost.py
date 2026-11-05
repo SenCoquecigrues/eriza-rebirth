@@ -1,4 +1,7 @@
-import random
+import datetime as dt
+import random, zoneinfo
+
+from functools import lru_cache
 
 from .fic_ressources import *
 
@@ -156,10 +159,27 @@ def fanfic_it(text):
     else:
         pairingz = f"{text[0]}, {text[1].strip()} et {text[2].strip()}"
 
-    result = f"""Mon algorithme a déterminé la fic optimale à écrire pour {pairingz} !
-Elle est de genre {genre_final} {warning_fic}.
-{cliche_fic}
-Sa longueur est {random.choice(longueur)}.
-L'écrire{random.choice(whywrite)}."""
+    result = f"""Mon algorithme a déterminé la fic optimale à écrire pour {pairingz} !\n Elle est de genre {genre_final} {warning_fic}.
+{cliche_fic}\nSa longueur est {random.choice(longueur)}.\nL'écrire{random.choice(whywrite)}."""
 
     return result
+
+################ SAIKA
+@lru_cache(maxsize=None)
+def get_timezones():
+    return zoneinfo.available_timezones()
+
+def return_time_after_timezone(place: str):
+    all_timezones = get_timezones()
+    is_valid = [one_zone for one_zone in all_timezones if place in one_zone]
+    if len(is_valid) == 0:
+        return "le quatrième jeudi du mois"
+
+    return dt.datetime.now(tz=zoneinfo.ZoneInfo(is_valid[0]))
+
+def return_apero_time(place: str) -> str:
+    current_time = return_time_after_timezone(place)
+    if type(current_time) == str:
+        return current_time
+
+    return current_time.strftime("%Hh%M")
